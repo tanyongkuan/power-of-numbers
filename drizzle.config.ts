@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["power-of-numbers_*"],
+  // tablesFilter: ["power-of-numbers_*"],
 } satisfies Config;

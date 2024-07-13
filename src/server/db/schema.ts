@@ -10,6 +10,8 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -17,7 +19,8 @@ import { type AdapterAccount } from "next-auth/adapters";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `power-of-numbers_${name}`);
+// export const createTable = pgTableCreator((name) => `power-of-numbers_${name}`);
+export const createTable = pgTableCreator((name) => name);
 
 export const posts = createTable(
   "post",
@@ -31,13 +34,13 @@ export const posts = createTable(
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date()
+      () => new Date(),
     ),
   },
   (example) => ({
     createdByIdIdx: index("created_by_idx").on(example.createdById),
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
 );
 
 export const users = createTable("user", {
@@ -84,7 +87,7 @@ export const accounts = createTable(
       columns: [account.provider, account.providerAccountId],
     }),
     userIdIdx: index("account_user_id_idx").on(account.userId),
-  })
+  }),
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -107,7 +110,7 @@ export const sessions = createTable(
   },
   (session) => ({
     userIdIdx: index("session_user_id_idx").on(session.userId),
-  })
+  }),
 );
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
@@ -126,5 +129,49 @@ export const verificationTokens = createTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
+  }),
 );
+
+export const rootNumbers = createTable("root_number", {
+  number: integer("number").primaryKey(),
+  positive: text("positive"),
+  negative: text("negative"),
+  summary: text("summary"),
+});
+
+export const RootNumber = createInsertSchema(rootNumbers);
+export type TRootNumber = z.infer<typeof RootNumber>;
+
+export const lifePathCategories = createTable("life_path_category", {
+  number: integer("number").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+});
+
+export const lifePaths = createTable(
+  "life_path",
+  {
+    // number: integer("number"),
+    mainCategory: integer("life_path_main_category_number").references(
+      () => lifePathCategories.number,
+    ),
+    secondaryCategory: integer(
+      "life_path_secondary_category_number",
+    ).references(() => lifePathCategories.number),
+    description: text("description"),
+  },
+  (lp) => ({
+    compoundKey: primaryKey({
+      columns: [lp.mainCategory, lp.secondaryCategory],
+    }),
+  }),
+);
+
+export const LifePath = createInsertSchema(lifePaths);
+export type TLifePath = z.infer<typeof LifePath>;
+
+export const lifePathRelations = relations(lifePathCategories, ({ one }) => ({
+  lifePath: one(lifePaths, {
+    fields: [lifePathCategories.number, lifePathCategories.number],
+    references: [lifePaths.mainCategory, lifePaths.secondaryCategory],
+  }),
+}));

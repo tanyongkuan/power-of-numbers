@@ -1,4 +1,5 @@
 import { postRouter } from "~/server/api/routers/post";
+import { powerOfNumberRouter } from "./routers/powerOfNumber";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -8,6 +9,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   post: postRouter,
+  powerOfNumber: powerOfNumberRouter,
 });
 
 // export type definition of API
