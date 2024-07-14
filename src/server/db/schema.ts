@@ -151,12 +151,12 @@ export const lifePaths = createTable(
   "life_path",
   {
     // number: integer("number"),
-    mainCategory: integer("life_path_main_category_number").references(
+    mainCategory: integer("main_category").references(
       () => lifePathCategories.number,
     ),
-    secondaryCategory: integer(
-      "life_path_secondary_category_number",
-    ).references(() => lifePathCategories.number),
+    secondaryCategory: integer("secondary_category").references(
+      () => lifePathCategories.number,
+    ),
     description: text("description"),
   },
   (lp) => ({
@@ -169,9 +169,46 @@ export const lifePaths = createTable(
 export const LifePath = createInsertSchema(lifePaths);
 export type TLifePath = z.infer<typeof LifePath>;
 
-export const lifePathRelations = relations(lifePathCategories, ({ one }) => ({
-  lifePath: one(lifePaths, {
-    fields: [lifePathCategories.number, lifePathCategories.number],
-    references: [lifePaths.mainCategory, lifePaths.secondaryCategory],
+export const lifePathRelations = relations(lifePaths, ({ one }) => ({
+  mainCategoryRelation: one(lifePathCategories, {
+    fields: [lifePaths.mainCategory],
+    references: [lifePathCategories.number],
+  }),
+  secondaryCategoryRelation: one(lifePathCategories, {
+    fields: [lifePaths.secondaryCategory],
+    references: [lifePathCategories.number],
   }),
 }));
+
+export const sideRootNumbers = createTable("side_root_number", {
+  number: integer("number").primaryKey(),
+  description: varchar("description", { length: 255 }).notNull(),
+});
+
+//Chapter 18
+export const hiddenRootNumbers = createTable("hidden_root_number", {
+  number: integer("number").primaryKey(),
+  description: varchar("description", { length: 255 }).notNull(),
+});
+
+//Chapter 19 Sickness
+
+//Chapter 22 Combined Root number
+export const combinedRootNumbers = createTable("combined_root_number", {
+  number: integer("number").primaryKey(),
+  description: varchar("description", { length: 255 }).notNull(),
+});
+
+//Chapter 23 Career/Work & Business Options
+export const careerAnalysis = createTable("career_analysis", {
+  // number: integer("number").primaryKey(),
+  element: varchar("text").notNull().primaryKey(),
+  profession: text("profession"),
+  business: text("business"),
+});
+
+//Chapter 24 Day Analysis
+export const dayAnalysis = createTable("day_analysis", {
+  number: integer("number").primaryKey(),
+  description: varchar("description", { length: 255 }).notNull(),
+});

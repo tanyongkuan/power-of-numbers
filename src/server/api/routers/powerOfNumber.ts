@@ -5,7 +5,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { rootNumbers, lifePaths } from "~/server/db/schema";
+import { rootNumbers, lifePaths, sideRootNumbers } from "~/server/db/schema";
 import { eq, and } from "drizzle-orm";
 
 export const powerOfNumberRouter = createTRPCRouter({
@@ -16,6 +16,13 @@ export const powerOfNumberRouter = createTRPCRouter({
         where: eq(rootNumbers.number, input.root),
       });
     }),
+  sideRootNumber: publicProcedure
+    .input(z.object({ primary: z.number() }))
+    .query(({ input, ctx }) => {
+      return ctx.db.query.sideRootNumbers.findFirst({
+        where: eq(sideRootNumbers.number, input.primary),
+      });
+    }),
   lifePath: publicProcedure
     .input(z.object({ primary: z.number(), secondary: z.number() }))
     .query(({ input, ctx }) => {
@@ -24,6 +31,18 @@ export const powerOfNumberRouter = createTRPCRouter({
           eq(lifePaths.mainCategory, input.primary),
           eq(lifePaths.secondaryCategory, input.secondary),
         ),
+        with: {
+          mainCategoryRelation: {
+            columns: {
+              name: true,
+            },
+          },
+          secondaryCategoryRelation: {
+            columns: {
+              name: true,
+            },
+          },
+        },
       });
     }),
 });

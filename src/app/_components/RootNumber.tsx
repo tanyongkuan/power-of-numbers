@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import { type TRootNumber } from "~/server/db/schema";
+import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
 
 export default function RootNumber({ root }: { root: number }) {
   const [data, setData] = useState<TRootNumber>();
@@ -31,17 +32,32 @@ export default function RootNumber({ root }: { root: number }) {
   return (
     <>
       {data && (
-        <div>
-          <h2 className="mb-4 text-3xl font-bold">Root Number: {root}</h2>
-          <div className="flex flex-col gap-4">
-            <p>{data.positive}</p>
-            <div>
-              <span className="font-bold">Negative Side:</span>
-              <p>{data.negative}</p>
+        <Card className="mb-4">
+          <CardHeader>
+            <CardTitle>Root Number: {root}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-4">
+              <p>{data.positive}</p>
+              <div>
+                <span className="font-bold">Negative Side:</span>
+                <p>{data.negative}</p>
+              </div>
+              <p className="font-bold">{data.summary}</p>
             </div>
-            <p className="font-bold">{data.summary}</p>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
+        // <div>
+        //   <h2 className="mb-4 text-3xl font-bold">Root Number: {root}</h2>
+        //   <div className="flex flex-col gap-4">
+        //     <p>{data.positive}</p>
+        //     <div>
+        //       <span className="font-bold">Negative Side:</span>
+        //       <p>{data.negative}</p>
+        //     </div>
+        //     <p className="font-bold">{data.summary}</p>
+        //   </div>
+        // </div>
       )}
     </>
   );
