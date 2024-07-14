@@ -54,10 +54,10 @@ const calculateQuadrantPairs = (
       secondary: invertedTriangle.centerQuadrant.right,
     },
     //TODO: Side number
-    {
-      primary: invertedTriangle.centerQuadrant.right,
-      secondary: 0,
-    },
+    // {
+    //   primary: invertedTriangle.centerQuadrant.right,
+    //   secondary: 0,
+    // },
     {
       primary: invertedTriangle.centerQuadrant.right,
       secondary: invertedTriangle.root,
@@ -77,9 +77,10 @@ const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
 
   const lifePathAnalysis = api.useQueries((t) =>
     quadrantPairs.map(({ primary, secondary }) => {
-      if (secondary !== 0)
-        return t.powerOfNumber.lifePath({ primary, secondary });
-      else return t.powerOfNumber.sideRootNumber({ primary });
+      return t.powerOfNumber.lifePath({ primary, secondary });
+      // if (secondary !== 0)
+      //   return t.powerOfNumber.lifePath({ primary, secondary });
+      // else return t.powerOfNumber.sideRootNumber({ primary });
     }),
   );
 
