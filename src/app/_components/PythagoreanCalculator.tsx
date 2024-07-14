@@ -135,6 +135,12 @@ export default function PythagoreanCalculator() {
   const [date, setDate] = useState<Date>(new Date());
   const [triangle, setTriangle] = useState<PythagoreanTriangle | null>(null);
 
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const calculatedTriangle = calculatePythagoreanTriangle(date);
@@ -166,7 +172,7 @@ export default function PythagoreanCalculator() {
                 fromYear={1900}
                 toYear={2024}
                 selected={date}
-                onSelect={setDate}
+                onSelect={handleDateSelect}
                 // numberOfMonths={2} //Add this line, if you want, can be 2 or more
                 className="rounded-md border"
               />
