@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { type PythagoreanTriangle } from "./PythagoreanCalculator";
 import { api } from "~/trpc/react";
 
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
-// import { Badge } from "@/components/ui/badge";
-// import { ScrollArea } from "@/components/ui/scroll-area";
+import { type TSideRootNumber } from "~/server/db/schema";
 
 type QuadrantPair = {
   primary: number;
@@ -53,11 +52,6 @@ const calculateQuadrantPairs = (
       primary: invertedTriangle.topRightQuadrant.right,
       secondary: invertedTriangle.centerQuadrant.right,
     },
-    //TODO: Side number
-    // {
-    //   primary: invertedTriangle.centerQuadrant.right,
-    //   secondary: 0,
-    // },
     {
       primary: invertedTriangle.centerQuadrant.right,
       secondary: invertedTriangle.root,
@@ -70,38 +64,55 @@ const calculateQuadrantPairs = (
 };
 
 const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
+  const [lifePathAnalysis, setLifePathAnalysis] = useState<TSideRootNumber>();
+
   const quadrantPairs = useMemo(
     () => calculateQuadrantPairs(triangle),
     [triangle],
   );
 
-  const lifePathAnalysis = api.useQueries((t) =>
-    quadrantPairs.map(({ primary, secondary }) => {
-      return t.powerOfNumber.lifePath({ primary, secondary });
-      // if (secondary !== 0)
-      //   return t.powerOfNumber.lifePath({ primary, secondary });
-      // else return t.powerOfNumber.sideRootNumber({ primary });
-    }),
+  const lifePathQuery = api.useQueries((t) =>
+    quadrantPairs.map(({ primary, secondary }) =>
+      t.powerOfNumber.lifePath({ primary, secondary }),
+    ),
+  );
+
+  const sideNumberAnalysis = api.powerOfNumber.sideRootNumber.useQuery(
+    {
+      primary: triangle.invertedTriangle.centerQuadrant.right,
+    },
+    { enabled: false },
   );
 
   useCallback(() => {
     // Trigger the query when the 'root' prop changes
-    lifePathAnalysis.forEach((result) => {
+    lifePathQuery.forEach((result) => {
       try {
         void result.refetch();
       } catch (err) {}
     });
-  }, [lifePathAnalysis]);
+  }, [lifePathQuery]);
 
-  if (lifePathAnalysis.some((result) => result.isLoading)) {
+  useEffect(() => {
+    // Trigger the query when the 'root' prop changes
+    void sideNumberAnalysis.refetch();
+  }, [sideNumberAnalysis]);
+
+  useEffect(() => {
+    // Update local state when the query data changes
+    if (sideNumberAnalysis.data) {
+      setLifePathAnalysis(sideNumberAnalysis.data);
+    }
+  }, [sideNumberAnalysis.data]);
+
+  if (lifePathQuery.some((result) => result.isLoading)) {
     return <div>Loading...</div>;
   }
 
-  if (lifePathAnalysis.some((result) => result.isError)) {
+  if (lifePathQuery.some((result) => result.isError)) {
     return (
       <div>
-        Error:{" "}
-        {lifePathAnalysis.find((result) => result.isError)?.error?.message}
+        Error: {lifePathQuery.find((result) => result.isError)?.error?.message}
       </div>
     );
   }
@@ -112,9 +123,8 @@ const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
         <CardTitle>Life Path Analysis</CardTitle>
       </CardHeader>
       <CardContent>
-        {/* <ScrollArea className="h-[300px]"> */}
         <ul>
-          {lifePathAnalysis.map((results, index) => (
+          {lifePathQuery.map((results, index) => (
             <li key={index} className="mb-2">
               {results.data?.mainCategoryRelation ? (
                 <strong>{`${results.data?.mainCategoryRelation?.name} - ${results.data?.secondaryCategoryRelation?.name}`}</strong>
@@ -122,13 +132,19 @@ const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
                 <strong>Character</strong>
               )}
               : {results.data?.description}
-              {index < lifePathAnalysis.length - 1 && (
+              {index === 7 && (
+                <>
+                  <Separator className="my-2" />
+                  <strong>Character : </strong>
+                  <span>{lifePathAnalysis?.description}</span>
+                </>
+              )}
+              {index < lifePathQuery.length - 1 && (
                 <Separator className="my-2" />
               )}
             </li>
           ))}
         </ul>
-        {/* </ScrollArea> */}
       </CardContent>
     </Card>
   );

@@ -47,17 +47,6 @@ export default function RootNumber({ root }: { root: number }) {
             </div>
           </CardContent>
         </Card>
-        // <div>
-        //   <h2 className="mb-4 text-3xl font-bold">Root Number: {root}</h2>
-        //   <div className="flex flex-col gap-4">
-        //     <p>{data.positive}</p>
-        //     <div>
-        //       <span className="font-bold">Negative Side:</span>
-        //       <p>{data.negative}</p>
-        //     </div>
-        //     <p className="font-bold">{data.summary}</p>
-        //   </div>
-        // </div>
       )}
     </>
   );

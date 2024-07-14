@@ -184,6 +184,8 @@ export const sideRootNumbers = createTable("side_root_number", {
   number: integer("number").primaryKey(),
   description: varchar("description", { length: 255 }).notNull(),
 });
+export const SideRootNumber = createInsertSchema(sideRootNumbers);
+export type TSideRootNumber = z.infer<typeof SideRootNumber>;
 
 //Chapter 18
 export const hiddenRootNumbers = createTable("hidden_root_number", {
