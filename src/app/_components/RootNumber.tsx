@@ -15,8 +15,8 @@ export default function RootNumber({ root }: { root: number }) {
 
   useEffect(() => {
     // Trigger the query when the 'root' prop changes
-    rootNumberQuery.refetch();
-  }, [root]);
+    void rootNumberQuery.refetch();
+  }, [rootNumberQuery]);
 
   useEffect(() => {
     // Update local state when the query data changes
