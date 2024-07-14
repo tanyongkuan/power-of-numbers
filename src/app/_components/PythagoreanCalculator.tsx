@@ -3,6 +3,16 @@
 import { useState } from "react";
 import RootNumber from "./RootNumber";
 import LifePath from "./LifePath";
+import { Calendar } from "~/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
+import { Button } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
 
 type Quadrant = {
   left: number;
@@ -41,12 +51,23 @@ const customSum = ({ left, right }: Quadrant): number => {
   return sum_ab === 0 ? 1 : sum_ab;
 };
 
-function calculatePythagoreanTriangle(date: string): PythagoreanTriangle {
-  if (date.length !== 8) {
-    throw new Error("Date must be 8 characters long");
-  }
+function calculatePythagoreanTriangle(date: Date): PythagoreanTriangle {
+  const formattedDate = format(date, "ddMMyyyy");
 
-  const numbers = date.split("").map(Number);
+  const numbers = formattedDate.split("").map((char) => parseInt(char, 10));
+  console.log(numbers);
+  if (
+    numbers[0] === undefined ||
+    numbers[1] === undefined ||
+    numbers[2] === undefined ||
+    numbers[3] === undefined ||
+    numbers[4] === undefined ||
+    numbers[5] === undefined ||
+    numbers[6] === undefined ||
+    numbers[7] === undefined
+  ) {
+    throw "";
+  }
   const topLeftQuadrant: Quadrant = {
     left: customSum({ left: numbers[0], right: numbers[1] }),
     right: customSum({ left: numbers[2], right: numbers[3] }),
@@ -111,7 +132,7 @@ function calculatePythagoreanTriangle(date: string): PythagoreanTriangle {
 }
 
 export default function PythagoreanCalculator() {
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
   const [triangle, setTriangle] = useState<PythagoreanTriangle | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -123,16 +144,34 @@ export default function PythagoreanCalculator() {
   return (
     <>
       <form onSubmit={handleSubmit} className="mb-8">
-        <div className="flex gap-4">
-          <input
-            type="text"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            placeholder="Enter date (DDMMYYYY)"
-            pattern="\d{8}"
-            required
-            className="flex-grow rounded border px-4 py-2"
-          />
+        <div className="flex justify-center gap-4">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-[280px] justify-start text-left font-normal",
+                  !date && "text-muted-foreground",
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? format(date, "dd/MM/yyyy") : <span>Pick a date</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                initialFocus
+                mode="single"
+                captionLayout="dropdown-buttons" //Also: dropdown | buttons
+                fromYear={1900}
+                toYear={2024}
+                selected={date}
+                onSelect={setDate}
+                // numberOfMonths={2} //Add this line, if you want, can be 2 or more
+                className="rounded-md border"
+              />
+            </PopoverContent>
+          </Popover>
           <button
             type="submit"
             className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
@@ -147,13 +186,13 @@ export default function PythagoreanCalculator() {
           <div className="relative flex flex-col items-center">
             <div className="mb-2 flex justify-center">
               <div className="m-1 flex h-8 w-12 items-center justify-center border">
-                {date.slice(0, 2)}
+                {format(date, "ddMMyyyy").slice(0, 2)}
               </div>
               <div className="m-1 flex h-8 w-12 items-center justify-center border">
-                {date.slice(2, 4)}
+                {format(date, "ddMMyyyy").slice(2, 4)}
               </div>
               <div className="m-1 flex h-8 w-12 items-center justify-center border">
-                {date.slice(4, 8)}
+                {format(date, "ddMMyyyy").slice(4, 8)}
               </div>
             </div>
             <div className="mb-2 flex justify-center">

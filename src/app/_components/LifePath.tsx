@@ -86,7 +86,11 @@ const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
 
   useCallback(() => {
     // Trigger the query when the 'root' prop changes
-    lifePathAnalysis.forEach((result) => result.refetch());
+    lifePathAnalysis.forEach((result) => {
+      try {
+        void result.refetch();
+      } catch (err) {}
+    });
   }, [lifePathAnalysis]);
 
   if (lifePathAnalysis.some((result) => result.isLoading)) {

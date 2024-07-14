@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { HydrateClient } from "~/trpc/server";
 import PythagoreanCalculator from "./_components/PythagoreanCalculator";
 
