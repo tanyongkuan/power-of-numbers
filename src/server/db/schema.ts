@@ -195,6 +195,15 @@ export const hiddenRootNumbers = createTable("hidden_root_number", {
 
 //Chapter 19 Sickness
 
+//Chapter 20 Health
+export const healthAnalysis = createTable("health_analysis", {
+  element: text("element").primaryKey(),
+  description: text("description").notNull(),
+});
+
+export const HealthAnalysis = createInsertSchema(healthAnalysis);
+export type THealthAnalysis = z.infer<typeof HealthAnalysis>;
+
 //Chapter 22 Combined Root number
 export const combinedRootNumbers = createTable("combined_root_number", {
   number: integer("number").primaryKey(),

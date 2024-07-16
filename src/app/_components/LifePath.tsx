@@ -132,7 +132,7 @@ const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
                 <strong>Character</strong>
               )}
               : {results.data?.description}
-              {index === 7 && (
+              {index === 6 && (
                 <>
                   <Separator className="my-2" />
                   <strong>Character : </strong>

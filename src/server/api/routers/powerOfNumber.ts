@@ -5,8 +5,14 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { rootNumbers, lifePaths, sideRootNumbers } from "~/server/db/schema";
-import { eq, and } from "drizzle-orm";
+import {
+  rootNumbers,
+  lifePaths,
+  sideRootNumbers,
+  healthAnalysis,
+} from "~/server/db/schema";
+import { eq, and, inArray } from "drizzle-orm";
+import { Element } from "~/types";
 
 export const powerOfNumberRouter = createTRPCRouter({
   rootNumber: publicProcedure
@@ -44,5 +50,22 @@ export const powerOfNumberRouter = createTRPCRouter({
           },
         },
       });
+    }),
+  healthAnalysis: publicProcedure
+    .input(z.object({ elementArr: z.array(Element) }))
+    .query(async ({ input, ctx }) => {
+      const elements = input.elementArr;
+
+      const results = await ctx.db
+        .select({
+          description: healthAnalysis.description,
+        })
+        .from(healthAnalysis)
+        .where(inArray(healthAnalysis.element, elements));
+
+      return results
+        .map((item) => item.description)
+        .join(";")
+        .split(";");
     }),
 });

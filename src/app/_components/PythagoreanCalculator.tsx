@@ -3,6 +3,7 @@
 import { useState } from "react";
 import RootNumber from "./RootNumber";
 import LifePath from "./LifePath";
+import HealthAnalysis from "./HealthAnalysis";
 import { Calendar } from "~/components/ui/calendar";
 import {
   Popover,
@@ -55,7 +56,6 @@ function calculatePythagoreanTriangle(date: Date): PythagoreanTriangle {
   const formattedDate = format(date, "ddMMyyyy");
 
   const numbers = formattedDate.split("").map((char) => parseInt(char, 10));
-  console.log(numbers);
   if (
     numbers[0] === undefined ||
     numbers[1] === undefined ||
@@ -273,6 +273,7 @@ export default function PythagoreanCalculator() {
           </div>
           <RootNumber root={triangle.invertedTriangle.root} />
           <LifePath triangle={triangle} />
+          <HealthAnalysis triangle={triangle} />
         </div>
       )}
     </>
