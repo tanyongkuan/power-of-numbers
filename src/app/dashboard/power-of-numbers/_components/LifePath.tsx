@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { type PythagoreanTriangle } from "./PythagoreanCalculator";
+import { type TPythagoreanTriangle } from "~/types";
 import { api } from "~/trpc/react";
 
-import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 import { type TSideRootNumber } from "~/server/db/schema";
 
@@ -14,7 +13,7 @@ type QuadrantPair = {
 };
 
 const calculateQuadrantPairs = (
-  triangle: PythagoreanTriangle,
+  triangle: TPythagoreanTriangle,
 ): QuadrantPair[] => {
   const {
     invertedTriangle,
@@ -63,7 +62,7 @@ const calculateQuadrantPairs = (
   ];
 };
 
-const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
+const LifePath = ({ triangle }: { triangle: TPythagoreanTriangle }) => {
   const [lifePathAnalysis, setLifePathAnalysis] = useState<TSideRootNumber>();
 
   const quadrantPairs = useMemo(
@@ -118,35 +117,26 @@ const LifePath = ({ triangle }: { triangle: PythagoreanTriangle }) => {
   }
 
   return (
-    <Card className="mb-4">
-      <CardHeader>
-        <CardTitle>Life Path Analysis</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ul>
-          {lifePathQuery.map((results, index) => (
-            <li key={index} className="mb-2">
-              {results.data?.mainCategoryRelation ? (
-                <strong>{`${results.data?.mainCategoryRelation?.name} - ${results.data?.secondaryCategoryRelation?.name}`}</strong>
-              ) : (
-                <strong>Character</strong>
-              )}
-              : {results.data?.description}
-              {index === 6 && (
-                <>
-                  <Separator className="my-2" />
-                  <strong>Character : </strong>
-                  <span>{lifePathAnalysis?.description}</span>
-                </>
-              )}
-              {index < lifePathQuery.length - 1 && (
-                <Separator className="my-2" />
-              )}
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+    <ul>
+      {lifePathQuery.map((results, index) => (
+        <li key={index} className="mb-2">
+          {results.data?.mainCategoryRelation ? (
+            <strong>{`${results.data?.mainCategoryRelation?.name} - ${results.data?.secondaryCategoryRelation?.name}`}</strong>
+          ) : (
+            <strong>Character</strong>
+          )}
+          : {results.data?.description}
+          {index === 6 && (
+            <>
+              <Separator className="my-2" />
+              <strong>Character : </strong>
+              <span>{lifePathAnalysis?.description}</span>
+            </>
+          )}
+          {index < lifePathQuery.length - 1 && <Separator className="my-2" />}
+        </li>
+      ))}
+    </ul>
   );
 };
 

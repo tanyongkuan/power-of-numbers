@@ -8,10 +8,12 @@ import {
   text,
   timestamp,
   varchar,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
+import { PythagoreanTriangle } from "~/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -57,9 +59,42 @@ export const users = createTable("user", {
   image: varchar("image", { length: 255 }),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
+  userInformation: one(userInformation, {
+    fields: [users.id],
+    references: [userInformation.userId],
+  }),
 }));
+
+export const userInformation = createTable("user_information", {
+  userId: varchar("user_id", { length: 255 })
+    .notNull()
+    .references(() => users.id)
+    .primaryKey(),
+  birthday: text("birthday").notNull(),
+  pythagoreanTriangle: jsonb("pythagorean_triangle").notNull(),
+});
+
+export const userInformationRelations = relations(
+  userInformation,
+  ({ one }) => ({
+    ser: one(users, {
+      fields: [userInformation.userId],
+      references: [users.id],
+    }),
+  }),
+);
+
+const userSchema = createSelectSchema(users);
+const userInfoSchema = createSelectSchema(userInformation).extend({
+  pythagoreanTriangle: PythagoreanTriangle,
+});
+
+export type TUser = z.infer<typeof userSchema>;
+export type TUserInfo = TUser & {
+  userInformation: z.infer<typeof userInfoSchema>;
+};
 
 export const accounts = createTable(
   "account",
@@ -159,11 +194,11 @@ export const lifePaths = createTable(
     ),
     description: text("description"),
   },
-  (lp) => ({
-    compoundKey: primaryKey({
-      columns: [lp.mainCategory, lp.secondaryCategory],
-    }),
-  }),
+  // (lp) => ({
+  //   compoundKey: primaryKey({
+  //     columns: [lp.mainCategory, lp.secondaryCategory],
+  //   }),
+  // }),
 );
 
 export const LifePath = createInsertSchema(lifePaths);
@@ -193,9 +228,9 @@ export const hiddenRootNumbers = createTable("hidden_root_number", {
   description: varchar("description", { length: 255 }).notNull(),
 });
 
-//Chapter 19 Sickness
+//Chapter 19 Inner Diagram
 
-//Chapter 20 Health
+//Chapter 20 Health and Sickness
 export const healthAnalysis = createTable("health_analysis", {
   element: text("element").primaryKey(),
   description: text("description").notNull(),

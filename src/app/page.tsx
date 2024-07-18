@@ -1,15 +1,40 @@
-import { HydrateClient } from "~/trpc/server";
-import PythagoreanCalculator from "./_components/PythagoreanCalculator";
+import { HydrateClient, api } from "~/trpc/server";
+import { getServerAuthSession } from "~/server/auth";
+import Header from "~/components/Header";
+import Footer from "~/components/Footer";
+import { Suspense } from "react";
+import Hero from "~/components/Hero";
+import FeaturesListicle from "~/components/FeaturesListicle";
+import Pricing from "~/components/Pricing";
+import FAQ from "~/components/FAQ";
+import CTA from "~/components/CTA";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerAuthSession();
+
+  if (session) {
+    const response = await api.user.getPythagoreanTriangle();
+    if (response.pythagoreanTriangle) {
+      redirect("/dashboard");
+    }
+    redirect("/onboarding");
+  }
+
   return (
     <HydrateClient>
-      <div className="container mx-auto max-w-2xl px-4 py-8">
-        <h1 className="mb-6 text-center text-3xl font-bold">
-          Pythagorean Triangle Calculator
-        </h1>
-        <PythagoreanCalculator />
-      </div>
+      <Suspense>
+        <Header />
+      </Suspense>
+      <main className="flex min-h-screen flex-col items-center justify-center">
+        <Hero />
+        {/* <Problem /> */}
+        {/* <FeaturesListicle />
+        <Pricing />
+        <FAQ />
+        <CTA /> */}
+      </main>
+      <Footer />
     </HydrateClient>
     // const hello = await api.post.hello({ text: "from tRPC" });
     // const session = await getServerAuthSession();

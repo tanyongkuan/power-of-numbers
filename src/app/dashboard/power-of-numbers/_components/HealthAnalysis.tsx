@@ -1,12 +1,11 @@
 "use client";
 
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
-import { type PythagoreanTriangle } from "./PythagoreanCalculator";
 import { findMissingElement, findElementByNumber } from "~/lib/elements";
 import { useEffect, useMemo, useState } from "react";
 import { api } from "~/trpc/react";
 import Pill from "~/components/ui/pill";
-import { type TRootNumber } from "~/types";
+import type { PythagoreanTriangle } from "~/types";
 
 const HealthAnalysis = ({ triangle }: { triangle: PythagoreanTriangle }) => {
   const [healthAnalysis, setHealthAnalysis] = useState<Array<string | null>>(
@@ -15,18 +14,16 @@ const HealthAnalysis = ({ triangle }: { triangle: PythagoreanTriangle }) => {
 
   const missingElement = useMemo(() => {
     const elements = findMissingElement([
-      triangle.invertedTriangle.centerQuadrant.left as TRootNumber,
-      triangle.invertedTriangle.centerQuadrant.right as TRootNumber,
-      triangle.invertedTriangle.root as TRootNumber,
-      triangle.bottomOutsideQuadrant.left as TRootNumber,
-      triangle.bottomOutsideQuadrant.right as TRootNumber,
+      triangle.invertedTriangle.centerQuadrant.left,
+      triangle.invertedTriangle.centerQuadrant.right,
+      triangle.invertedTriangle.root,
+      triangle.bottomOutsideQuadrant.left,
+      triangle.bottomOutsideQuadrant.right,
     ]);
 
     if (elements.length === 0) {
       return [
-        findElementByNumber(
-          triangle.invertedTriangle.topLeftQuadrant.left as TRootNumber,
-        ),
+        findElementByNumber(triangle.invertedTriangle.topLeftQuadrant.left),
       ];
     }
 
@@ -55,7 +52,7 @@ const HealthAnalysis = ({ triangle }: { triangle: PythagoreanTriangle }) => {
   return (
     <Card className="mb-4">
       <CardHeader>
-        <CardTitle>Health Analysis</CardTitle>
+        <CardTitle>Potential Area of Sickness</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2">
