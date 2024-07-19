@@ -5,9 +5,9 @@ import { findMissingElement, findElementByNumber } from "~/lib/elements";
 import { useEffect, useMemo, useState } from "react";
 import { api } from "~/trpc/react";
 import Pill from "~/components/ui/pill";
-import type { PythagoreanTriangle } from "~/types";
+import type { TPythagoreanTriangle } from "~/types";
 
-const HealthAnalysis = ({ triangle }: { triangle: PythagoreanTriangle }) => {
+const HealthAnalysis = ({ triangle }: { triangle: TPythagoreanTriangle }) => {
   const [healthAnalysis, setHealthAnalysis] = useState<Array<string | null>>(
     [],
   );
