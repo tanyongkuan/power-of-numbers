@@ -4,7 +4,6 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import RootNumber from "./power-of-numbers/_components/RootNumber";
 
 export default function Dashboard() {
   return (

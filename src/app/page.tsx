@@ -1,5 +1,5 @@
 import { HydrateClient, api } from "~/trpc/server";
-import { getServerAuthSession } from "~/server/auth";
+import { auth } from "~/server/auth";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
 import { Suspense } from "react";
@@ -11,7 +11,7 @@ import CTA from "~/components/CTA";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const session = await getServerAuthSession();
+  const session = await auth();
 
   if (session) {
     const response = await api.user.getPythagoreanTriangle();

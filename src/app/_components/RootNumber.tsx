@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { api } from "~/trpc/react";
-import { type TRootNumber } from "~/server/db/schema";
+import { type TRootNumberAnalysis } from "~/types";
 import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
 
 export default function RootNumber({ root }: { root: number }) {
-  const [data, setData] = useState<TRootNumber>();
+  const [data, setData] = useState<TRootNumberAnalysis>();
 
   const rootNumberQuery = api.powerOfNumber.rootNumber.useQuery(
     { root },

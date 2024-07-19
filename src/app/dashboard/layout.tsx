@@ -1,12 +1,12 @@
 import { type ReactNode } from "react";
 import { redirect } from "next/navigation";
 import config from "~/lib/config";
-import { getServerAuthSession } from "~/server/auth";
+import { auth } from "~/server/auth";
 import { api } from "~/trpc/server";
 import { DashboardContent } from "./_components/DashboardContent";
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
-  const session = await getServerAuthSession();
+  const session = await auth();
 
   if (!session) {
     redirect(config.auth.loginUrl);

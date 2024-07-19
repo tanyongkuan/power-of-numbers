@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
-import type { TUserInfo } from "~/server/db/schema";
+import type { TUserInfo } from "~/types";
 
 interface UserContextType {
   userInfo: TUserInfo | null;

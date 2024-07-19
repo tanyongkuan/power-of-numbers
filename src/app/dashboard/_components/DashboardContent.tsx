@@ -1,18 +1,15 @@
-// app/dashboard/_components/DashboardContent.tsx
-"use client";
-
 import { type ReactNode } from "react";
 import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { UserProvider } from "./UserContext";
-import { type UserInfo } from "~/types"; // Define this type based on your user info structure
+import { type TUserInfo } from "~/types"; // Define this type based on your user info structure
 
 export function DashboardContent({
   children,
   userInfo,
 }: {
   children: ReactNode;
-  userInfo: UserInfo;
+  userInfo: TUserInfo;
 }) {
   return (
     <UserProvider initialUserInfo={userInfo}>

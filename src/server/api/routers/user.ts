@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { calculatePythagoreanTriangle } from "~/lib/pythagoreanTriangle";
-import { type TUserInfo, userInformation, users } from "~/server/db/schema";
+import { userInformation, users } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
-import { type TPythagoreanTriangle } from "~/types";
+import type { TUserInfo, TPythagoreanTriangle } from "~/types";
 import { format } from "date-fns";
 
 export const userRouter = createTRPCRouter({

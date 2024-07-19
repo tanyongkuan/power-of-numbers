@@ -1,4 +1,6 @@
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
+import { rootNumbers, userInformation, users } from "~/server/db/schema";
 
 // export type Enumerate<
 //   N extends number,
@@ -75,3 +77,16 @@ export type TQuadrant = z.infer<typeof Quadrant>;
 export type TOutsideQuadrant = z.infer<typeof OutsideQuadrant>;
 export type TInvertedTriangle = z.infer<typeof InvertedTriangle>;
 export type TPythagoreanTriangle = z.infer<typeof PythagoreanTriangle>;
+
+const userSchema = createSelectSchema(users);
+const userInfoSchema = createSelectSchema(userInformation).extend({
+  pythagoreanTriangle: PythagoreanTriangle,
+});
+
+export type TUser = z.infer<typeof userSchema>;
+export type TUserInfo = TUser & {
+  userInformation: z.infer<typeof userInfoSchema>;
+};
+
+export const RootNumberAnalysis = createInsertSchema(rootNumbers);
+export type TRootNumberAnalysis = z.infer<typeof RootNumberAnalysis>;

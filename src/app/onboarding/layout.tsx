@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
-import { getServerAuthSession } from "~/server/auth";
+import { auth } from "~/server/auth";
 import { api } from "~/trpc/server";
 
 export default async function OnboardingLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = await getServerAuthSession();
+  const session = await auth();
 
   if (session === null) {
     redirect("/");

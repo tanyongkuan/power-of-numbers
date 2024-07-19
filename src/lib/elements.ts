@@ -13,7 +13,7 @@ const ELEMENT_MAP: Record<TRootNumber, TElement> = {
 };
 
 export const findElementByNumber = (number: TRootNumber): TElement => {
-  return ELEMENT_MAP[number];
+  return ELEMENT_MAP[number] as TElement;
 };
 
 export const findMissingElement = (
@@ -31,7 +31,7 @@ export const findMissingElement = (
 
   if (presentElements.size === 1) {
     // All numbers correspond to the same element
-    return [ELEMENT_MAP[numbers[0]]];
+    return [ELEMENT_MAP[numbers[0]] as TElement];
   }
 
   return Object.values(Element.Enum).filter(

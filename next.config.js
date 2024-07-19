@@ -15,6 +15,14 @@ const config = {
       "images.unsplash.com",
       "logos-world.net",
     ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.googleusercontent.com",
+        port: "",
+        pathname: "**",
+      },
+    ],
   },
 };
 

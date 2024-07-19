@@ -11,9 +11,8 @@ import {
   jsonb,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import { PythagoreanTriangle } from "~/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -85,16 +84,6 @@ export const userInformationRelations = relations(
     }),
   }),
 );
-
-const userSchema = createSelectSchema(users);
-const userInfoSchema = createSelectSchema(userInformation).extend({
-  pythagoreanTriangle: PythagoreanTriangle,
-});
-
-export type TUser = z.infer<typeof userSchema>;
-export type TUserInfo = TUser & {
-  userInformation: z.infer<typeof userInfoSchema>;
-};
 
 export const accounts = createTable(
   "account",
@@ -173,9 +162,6 @@ export const rootNumbers = createTable("root_number", {
   negative: text("negative"),
   summary: text("summary"),
 });
-
-export const RootNumber = createInsertSchema(rootNumbers);
-export type TRootNumber = z.infer<typeof RootNumber>;
 
 export const lifePathCategories = createTable("life_path_category", {
   number: integer("number").primaryKey(),
