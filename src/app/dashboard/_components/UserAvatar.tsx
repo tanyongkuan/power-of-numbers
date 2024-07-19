@@ -12,8 +12,8 @@ const UserAvatar = () => {
 
   return (
     <Avatar>
-      <AvatarImage src={imageUrl} alt={user?.userInfo?.name || "User Avatar"} />
-      <AvatarFallback>{user?.userInfo?.name || "CN"}</AvatarFallback>
+      <AvatarImage src={imageUrl} alt={user?.userInfo?.name ?? "User Avatar"} />
+      <AvatarFallback>{user?.userInfo?.name ?? "CN"}</AvatarFallback>
     </Avatar>
   );
 };

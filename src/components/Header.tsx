@@ -92,10 +92,9 @@ const Header = () => {
                 <div className="py-4">
                   <div className="flex flex-col items-start gap-y-4">
                     {links.map((link) => (
-                      <SheetClose asChild>
+                      <SheetClose asChild key={link.href}>
                         <Link
                           href={link.href}
-                          key={link.href}
                           className="link link-hover"
                           title={link.label}
                         >

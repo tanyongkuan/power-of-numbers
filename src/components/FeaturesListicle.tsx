@@ -7,11 +7,13 @@ import type { JSX } from "react";
 // - name: name of the feature
 // - description: description of the feature (can be any JSX)
 // - svg: icon of the feature
-const features: {
+
+type Feature = {
   name: string;
   description: JSX.Element;
   svg: JSX.Element;
-}[] = [
+};
+const features: Array<Feature> = [
   {
     name: "Emails",
     description: (
@@ -497,10 +499,10 @@ const FeaturesListicle = () => {
               key={featureSelected}
             >
               <h3 className="text-base-content text-lg font-semibold">
-                {features.find((f) => f.name === featureSelected)!["name"]}
+                {features.find((f) => f.name === featureSelected)!.name}
               </h3>
 
-              {features.find((f) => f.name === featureSelected)!["description"]}
+              {features.find((f) => f.name === featureSelected)!.description}
             </div>
           </div>
         </div>
