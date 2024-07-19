@@ -10,7 +10,6 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import UserAvatar from "./UserAvatar";
-import { handleSignOut } from "~/actions/auth";
 
 export const Header = () => {
   return (
@@ -40,7 +39,7 @@ export const Header = () => {
                   action={async () => {
                     // signOut() Method will be declared later
                     "use server";
-                    await signOut({ callbackUrl: "/" });
+                    await signOut();
                   }}
                 >
                   <button>Log Out</button>
