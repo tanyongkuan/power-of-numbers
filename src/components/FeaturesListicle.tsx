@@ -410,7 +410,7 @@ const FeaturesListicle = () => {
         );
         const nextIndex = (index + 1) % features.length;
 
-        if (features[nextIndex]) setFeatureSelected(features[nextIndex]!.name);
+        if (features[nextIndex]) setFeatureSelected(features[nextIndex].name);
       }
     }, 5000);
 
