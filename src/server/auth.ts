@@ -41,14 +41,15 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthConfig = {
+  adapter: DrizzleAdapter(db, {
+    usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }) as Adapter,
+  secret: env.NEXTAUTH_SECRET,
+  providers: [GoogleProvider],
   callbacks: {
-    // session: ({ session, user }) => ({
-    //   ...session,
-    //   user: {
-    //     ...session.user,
-    //     id: user.id,
-    //   },
-    // }),
     session: (opts) => {
       if (!("user" in opts))
         throw new Error("unreachable with session strategy");
@@ -62,19 +63,6 @@ export const authOptions: NextAuthConfig = {
       };
     },
   },
-  secret: env.NEXTAUTH_SECRET,
-  adapter: DrizzleAdapter(db, {
-    usersTable: users,
-    accountsTable: accounts,
-    sessionsTable: sessions,
-    verificationTokensTable: verificationTokens,
-  }) as Adapter,
-  providers: [
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    }),
-  ],
 };
 
 // @see https://next-auth.js.org/configuration/nextjs
