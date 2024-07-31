@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "~/components/ui/card";
 import { findMissingElement, findElementByNumber } from "~/lib/elements";
 import { useEffect, useMemo, useState } from "react";
 import { api } from "~/trpc/react";
@@ -50,18 +49,11 @@ const HealthAnalysis = ({ triangle }: { triangle: TPythagoreanTriangle }) => {
   }, [healthAnalysisQuery.data]);
 
   return (
-    <Card className="mb-4">
-      <CardHeader>
-        <CardTitle>Potential Area of Sickness</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-wrap gap-2">
-          {healthAnalysis.map((sickness, index) => (
-            <Pill key={index}>{sickness}</Pill>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="flex flex-wrap gap-2">
+      {healthAnalysis.map((sickness, index) => (
+        <Pill key={index}>{sickness}</Pill>
+      ))}
+    </div>
   );
 };
 

@@ -34,7 +34,7 @@ export const Sidebar = () => {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden w-64 bg-gray-100 p-4 md:block">
+      <aside className="hidden w-64 flex-shrink-0 bg-gray-100 p-4 md:block">
         <SidebarContent />
       </aside>
 

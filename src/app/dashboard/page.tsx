@@ -19,7 +19,7 @@ export default function Dashboard() {
         </CardHeader>
         <CardContent>
           <p>
-            Here you can add a summary or quick stats of the user`&apos;`s
+            Here you can add a summary or quick stats of the user&apos;s
             analyses.
           </p>
         </CardContent>

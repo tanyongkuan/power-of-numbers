@@ -17,7 +17,7 @@ export const userRouter = createTRPCRouter({
       await ctx.db.insert(userInformation).values({
         userId: ctx.session.user.id,
         birthday: format(birthday, "dd/MM/yyyy"),
-        pythagoreanTriangle: JSON.stringify(pythagoreanTriangle),
+        pythagoreanTriangle,
       });
 
       return { success: true };
