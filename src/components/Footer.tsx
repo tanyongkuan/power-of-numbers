@@ -31,7 +31,7 @@ const Footer = () => {
             </Link>
 
             <p className="text-base-content/80 mt-3 text-sm">
-              Ship your startup in days, not weeks
+              Harness the Power of Numbers
             </p>
             <p className="text-base-content/60 mt-3 text-sm">
               Copyright © {new Date().getFullYear()} - All rights reserved
@@ -54,12 +54,12 @@ const Footer = () => {
                     Support
                   </a>
                 )}
-                <Link href="/#pricing" className="link link-hover">
+                {/* <Link href="/#pricing" className="link link-hover">
                   Pricing
                 </Link>
                 <a href="/#" target="_blank" className="link link-hover">
                   Affiliates
-                </a>
+                </a> */}
               </div>
             </div>
 

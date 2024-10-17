@@ -1,6 +1,18 @@
 import Image from "next/image";
 import TestimonialsAvatars from "./TestimonialsAvatars";
-import config from "~/lib/config";
+import { Button } from "./ui/button";
+import { signIn } from "~/server/auth";
+
+const cta: JSX.Element = (
+  <form
+    action={async () => {
+      "use server";
+      await signIn("google");
+    }}
+  >
+    <Button type="submit">Unlock your life path in 5 mins!</Button>
+  </form>
+);
 
 const Hero = () => {
   return (
@@ -22,15 +34,13 @@ const Hero = () => {
         </a>
 
         <h1 className="text-4xl font-extrabold tracking-tight md:-mb-4 lg:text-6xl">
-          Ship your startup in days, not weeks
+          Harness the Power of Numbers
         </h1>
         <p className="text-lg leading-relaxed opacity-80">
-          The NextJS boilerplate with all you need to build your SaaS, AI tool,
-          or any other web app. From idea to production in 5 minutes.
+          Power of Numbers contains analysis of yourself that you never knew
+          about.
         </p>
-        <button className="btn btn-primary btn-wide">
-          Get {config.appName}
-        </button>
+        {cta}
 
         <TestimonialsAvatars />
       </div>

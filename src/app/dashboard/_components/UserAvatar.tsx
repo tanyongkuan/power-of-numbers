@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useUser, UserProvider } from "./UserContext";
+import { useUser } from "./UserContext";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
 import type { TUserInfo } from "~/types";

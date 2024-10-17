@@ -1,29 +1,29 @@
-# Create T3 App
+<h1 align="center">Power of Numbers</h1>
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+<p align="center">A web application where users can discover their life paths by simply entering their birthday. Inspired by the book "Power Of Numbers: Numerology Reading," this platform leverages numerology to provide insights into personality traits and potential future paths, all based on the principles of numbers.</p>
 
-## What's next? How do I make an app with this?
+## Links
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- [Live Website](https://power-of-numbers.vercel.app/ "Visit Power of Numbers")
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Built With
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?&style=for-the-badge&logo=tailwind-css&logoColor=white"/>
+<img src="https://img.shields.io/badge/Drizzle-89B3F7?style=for-the-badge&logo=drizzle&logoColor=white"/>
 
-## Learn More
+<br/><br/>
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+[![code style: eslint](https://img.shields.io/badge/code_style-eslint-blue)](https://github.com/eslint/eslint)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Deployment
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+This project is deployed on Vercel for seamless and fast hosting, providing an optimized user experience.
 
-## How do I deploy this?
+[![Vercel Status](https://vercelbadge.vercel.app/api/tanyongkuan/power-of-numbers)](https://vercel.com/tanyongkuan/power-of-numbers)
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## About Me
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/tanyongkuan/)

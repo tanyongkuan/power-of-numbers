@@ -454,8 +454,9 @@ const FeaturesListicle = () => {
           <div className="text-base-content/80 mb-8 leading-relaxed lg:text-lg">
             {/* 💡 COPY TIP: Explain how your product delivers what you promise in the headline. */}
             Login users, process payments and send emails at lightspeed. Spend
-            your time building your startup, not integrating APIs. ShipFast
-            provides you with the boilerplate code you need to launch, FAST.
+            your time building your startup, not integrating APIs. Power Of
+            Numbers provides you with the boilerplate code you need to launch,
+            FAST.
           </div>
         </div>
       </div>

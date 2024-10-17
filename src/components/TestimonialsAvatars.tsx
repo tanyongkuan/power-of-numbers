@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
 const avatars: {
@@ -62,8 +61,8 @@ const TestimonialsAvatars = () => {
         </div>
 
         <div className="text-base-content/80 text-base">
-          <span className="text-base-content font-semibold">32</span> makers
-          ship faster
+          <span className="text-base-content font-semibold">32</span> life paths
+          unlocked
         </div>
       </div>
     </div>

@@ -8,8 +8,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
-import UserAvatar from "./UserAvatar";
 
 export const Header = () => {
   return (
@@ -46,8 +44,6 @@ export const Header = () => {
                 >
                   <button>Log Out</button>
                 </form>
-                {/* <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span> */}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

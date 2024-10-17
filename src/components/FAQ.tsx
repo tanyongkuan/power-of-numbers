@@ -3,9 +3,6 @@
 import { useRef, useState } from "react";
 import type { JSX } from "react";
 
-// <FAQ> component is a lsit of <Item> component
-// Just import the FAQ & add your FAQ content to the const faqList arrayy below.
-
 interface FAQItemProps {
   question: string;
   answer: JSX.Element;
@@ -13,16 +10,30 @@ interface FAQItemProps {
 
 const faqList: FAQItemProps[] = [
   {
-    question: "What do I get exactly?",
-    answer: <div className="space-y-2 leading-relaxed">Loreum Ipseum</div>,
+    question: "What is a Life Path Number?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        Your Life Path Number is calculated from your date of birth and reveals
+        your life's purpose and strengths.
+      </div>
+    ),
   },
   {
-    question: "Can I get a refund?",
+    question: "How do I calculate my Life Path Number?",
     answer: (
-      <p>
-        Yes! You can request a refund within 7 days of your purchase. Reach out
-        by email.
-      </p>
+      <div className="space-y-2 leading-relaxed">
+        Simply enter your birthdate on our platform, and we will calculate it
+        for you using numerology principles.
+      </div>
+    ),
+  },
+  {
+    question: "Can I save my readings?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        Yes! Once you create an account, all of your readings will be saved in
+        your personal dashboard for easy access.
+      </div>
     ),
   },
   {

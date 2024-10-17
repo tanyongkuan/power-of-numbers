@@ -48,8 +48,6 @@ export default function PowerOfNumbersDashboard() {
               <SelectItem value="root">Root Number Analysis</SelectItem>
               <SelectItem value="lifePath">Life Path Analysis</SelectItem>
               <SelectItem value="health">Potential Area of Sickness</SelectItem>
-              <SelectItem value="grapes">Grapes</SelectItem>
-              <SelectItem value="pineapple">Pineapple</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -68,9 +66,6 @@ export default function PowerOfNumbersDashboard() {
                 <span>Potential Area of Sickness</span>
               )}
             </CardTitle>
-            {/* <CardDescription>
-              Make changes to your account here. Click save when you're done.
-            </CardDescription> */}
           </CardHeader>
           <CardContent className="space-y-2">
             {selectedAnalysis === "root" && (
@@ -83,9 +78,6 @@ export default function PowerOfNumbersDashboard() {
               <HealthAnalysis triangle={pythagoreanTriangle} />
             )}
           </CardContent>
-          {/* <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter> */}
         </Card>
       </div>
     </>
