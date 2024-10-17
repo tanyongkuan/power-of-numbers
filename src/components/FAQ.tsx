@@ -14,7 +14,7 @@ const faqList: FAQItemProps[] = [
     answer: (
       <div className="space-y-2 leading-relaxed">
         Your Life Path Number is calculated from your date of birth and reveals
-        your life's purpose and strengths.
+        your life&apos;s purpose and strengths.
       </div>
     ),
   },

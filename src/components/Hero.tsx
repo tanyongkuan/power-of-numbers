@@ -10,7 +10,7 @@ const cta: JSX.Element = (
       await signIn("google");
     }}
   >
-    <Button type="submit">Unlock your life path in 5 mins!</Button>
+    <Button type="submit">Reveal Your Destiny in Just 5 Minutes!</Button>
   </form>
 );
 
@@ -37,8 +37,9 @@ const Hero = () => {
           Harness the Power of Numbers
         </h1>
         <p className="text-lg leading-relaxed opacity-80">
-          Power of Numbers contains analysis of yourself that you never knew
-          about.
+          Discover hidden insights about yourself with Power of Numbers&#58;
+          Unlock the secrets of your personality through powerful numerical
+          analysis.
         </p>
         {cta}
 
